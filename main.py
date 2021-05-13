@@ -26,8 +26,6 @@ async def on_message(message):
             mes = message.content.split("\n", 1)[1].replace("```\n", "").replace("\n```", "")
             body = mes.split("\n")
             
-            interpreter.output = ""
-            interpreter.out_image = None
             interpreter.insert(body)
             while len(interpreter.wait_list) > 0:
                 interpreter.read(interpreter.find())
@@ -48,6 +46,9 @@ async def on_message(message):
             await message.channel.send("```\nIndexError\n```")
         except:
             await message.channel.send("```\nSyntaxError\n```")
+        finally:
+            interpreter.output = ""
+            interpreter.out_image = None
 
         time.sleep(5)
     

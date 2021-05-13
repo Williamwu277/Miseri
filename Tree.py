@@ -30,7 +30,7 @@ class Tree:
                     self.edge_graph.append((start, vert))
         elif self.key == "LINE":
             for vert in range(2, self.nodes+1):
-                if random.randint(1, self.alt) == 1:
+                if random.randint(1, max(self.alt, 1)) == 1:
                     start = random.randint(1, vert-1)
                 else:
                     start = vert-1
@@ -43,7 +43,7 @@ class Tree:
                     self.edge_graph.append((start, vert))
         elif self.key == "STAR":
             for vert in range(2, self.nodes+1):
-                if random.randint(1, self.alt) == 1:
+                if random.randint(1, max(self.alt, 1)) == 1:
                     start = random.randint(1, vert-1)
                 else:
                     start = 1

@@ -33,6 +33,10 @@ ___
 | ``DFS`` | perform depth first search on said tree | ``STR`` | convert to string |
 | ``TYPE`` | find the type of something | ``APPEND`` | add things to a list |
 | ``POP`` | pop an index from a list | ``REMOVE`` | remove something from a list |
+| ``RAND`` | generate random numbers | ``DRAW`` | send the image of a tree generated |
+| ``MIN`` | find the minimum number | ``MAX`` | find the maximum number |
+| ``BSL`` | lower bound binary search | ``BSU`` | upper bound binary search |
+| ``SORT`` | sort a list | | |
 
 ___
 

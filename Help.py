@@ -5,10 +5,10 @@ help_list = {
     Miseri's list of commands:\n\n
     $help - print out a list of commands\n
     $miseri-$ - use the miseri interpreter\n
-    Allows commands such as: SET, LOOP, IF, OUT, TREE, DFS, ADD, SUB, MULT, DIV, INT, STR, TYPE, APPEND, POP and REMOVE\n
+    Allows commands such as: SET, LOOP, IF, OUT, TREE, DFS, ADD, SUB, MULT, DIV, INT, STR, TYPE, APPEND, POP, REMOVE, RAND, MIN, MAX, SORT, BSL, BSU, DRAW\n
     There are also sub-commands: ENDL, READ and LIST\n
     $syntax <insert_command> - can be used to find out about the syntax of a specific command\n
-    NOTE: The syntax for the interpreter is extremely strict. Things such as spaces can create an error\n
+    NOTE: The syntax for the interpreter is extremely strict. Things such as spaces can create an error. Generally, no spaces are allowed unless it is in a string.\n
     ```
     """,
     "SET":
@@ -167,6 +167,62 @@ help_list = {
     LIST\n
     This can be substituted for []. Can be used to initialize a list. Indexes can be accessed by doing list->index although index has to be a number.\n
     E.g. SET->n<-LIST\n
+    ```
+    """,
+    "RAND":
+    """
+    ```\n
+    RAND->(num, low, high, type)\n
+    This command generates num numbers from low to high + 1. The type can be "RAND", "DISTINCT" or "OUTLIER". "RAND" just generates randomly, "DISTINCT" generates all distinct numbers and "OUTLIER" makes sure that high is in the list and that it is larger than all the other numbers in the list. "DISTINCT" will return error if there aren't enough numbers and "OUTLIER" may not have an outlier greater than the sum of all other numbers if the difference between high and low is too small. Note taht if num = 1 the command will return an integer instead of a list.\n
+    E.g. RAND->(14,2,66,"RAND")\n
+    ```
+    """,
+    "MIN":
+    """
+    ```\n
+    MIN->(val1, val2, ..., val_X)\n
+    This returns the minimum number in a list. The list can be a variable or a manually typed list.\n
+    E.g. MIN->(1,2,3,4,5,6)\n
+    ```
+    """,
+    "MAX":
+    """
+    ```\n
+    MAX->(val1, val2, ..., val_X)\n
+    This returns the maximum number in a list. The list can be a variable or a manually typed list.\n
+    E.g. MAX->n\n
+    ```
+    """,
+    "SORT":
+    """
+    ```\n
+    SORT->(val1, val2, ..., val_X)\n
+    This returns the sorted version of a list.\n
+    E.g. SORT->(5,2,7,8,5,6)\n
+    ```
+    """,
+    "BSL":
+    """
+    ```\n
+    BSL->list<-val\n
+    This is the equivalent of a lower bound in c++ or bisect.bisect_left in python.\n
+    E.g. BSL->n<-5\n
+    ```
+    """,
+    "BSU":
+    """
+    ```\n
+    BSU->list<-val\n
+    This is the equivalent of an upper bound in c++ or bisect.bisect_right in python.\n
+    E.g. BSU->(1,2,3,4,5)<-7\n
+    ```
+    """,
+    "DRAW":
+    """
+    ```\n
+    DRAW->tree\n
+    This renders a picture of the tree passed as a variable. Note that this can only be called once per message or there will be an error to prevent mass spamming\n
+    E.g. DRAW->n\n
     ```
     """
 }
