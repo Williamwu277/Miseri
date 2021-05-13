@@ -173,7 +173,7 @@ help_list = {
     """
     ```\n
     RAND->(num, low, high, type)\n
-    This command generates num numbers from low to high + 1. The type can be "RAND", "DISTINCT" or "OUTLIER". "RAND" just generates randomly, "DISTINCT" generates all distinct numbers and "OUTLIER" makes sure that high is in the list and that it is larger than all the other numbers in the list. "DISTINCT" will return error if there aren't enough numbers and "OUTLIER" may not have an outlier greater than the sum of all other numbers if the difference between high and low is too small. Note taht if num = 1 the command will return an integer instead of a list.\n
+    This command generates num numbers from low to high. The type can be "RAND", "DISTINCT" or "OUTLIER". "RAND" just generates randomly, "DISTINCT" generates all distinct numbers and "OUTLIER" makes sure that high is in the list and that it is larger than all the other numbers in the list. "DISTINCT" will return error if there aren't enough numbers and "OUTLIER" may not have an outlier greater than the sum of all other numbers if the difference between high and low is too small. Note that if num = 1 the command will return an integer instead of a list.\n
     E.g. RAND->(14,2,66,"RAND")\n
     ```
     """,

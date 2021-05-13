@@ -121,7 +121,7 @@ class Tree:
             draw.ellipse((cx-size//2, cy-size//2,cx+size//2, cy+size//2), "blue", "blue")
 
             text = ImageDraw.Draw(self.image)
-            text.text((cx-size//2+10, cy-size//2+10), str(cur), (255,255,0))
+            text.text((cx-5, cy-5), str(cur), (255,255,0))
 
             mp[depth[cur]] -= 1
 

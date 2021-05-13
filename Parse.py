@@ -240,6 +240,7 @@ class Miseri:
                 if action[2] - action[1] + 1 < 2000:
                     random_arr = list(range(action[1], action[2]+1))
                     random.shuffle(random_arr)
+                    random_arr = random_arr[:action[0]]
                 else:
                     taken = set()
                     for _ in range(action[0]):
