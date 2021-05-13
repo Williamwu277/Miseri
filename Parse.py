@@ -1,3 +1,5 @@
+import random
+import bisect
 from collections import deque
 from Tree import Tree
 
@@ -8,6 +10,7 @@ class Miseri:
         self.line = ""
         self.wait_list = deque()
         self.output = ""
+        self.out_image = None
         self.variables = dict()
     
     def insert(self, inp):
@@ -220,3 +223,74 @@ class Miseri:
             else:
                 self.variables[action[0]].remove(parameters)
             return self.variables[action[0]]
+        elif command == "RAND":
+            action = self.unpack(self.line.popleft())
+            #length, low, high, type
+            if action[0] > 200:
+                raise TimeoutError
+            random_arr = []
+            if action[3] == "OUTLIER":
+                random_arr.append(action[2])
+                for _ in range(action[0]-1):
+                    random_arr.append(random.randint(action[1], min(action[1], action[2]//action[0])))
+                random.shuffle(random_arr)
+            elif action[3] == "DISTINCT":
+                if action[2]-action[1]+1 < action[0]:
+                    raise SyntaxError
+                if action[2] - action[1] + 1 < 2000:
+                    random_arr = list(range(action[1], action[2]+1))
+                    random.shuffle(random_arr)
+                else:
+                    taken = set()
+                    for _ in range(action[0]):
+                        take = random.randint(action[1], action[2]+1)
+                        while take in taken:
+                            take = random.randint(action[1], action[2]+1)
+                        taken.add(take)
+                        random_arr.append(take)
+            elif action[3] == "RAND":
+                # else just regular random
+                for _ in range(action[0]):
+                    random_arr.append(random.randint(action[1], action[2]))
+            else:
+                raise SyntaxError
+            if len(random_arr) == 1:
+                # length one returns an integer
+                return random_arr[0]
+            else:
+                return random_arr
+        elif command == "SORT":
+            param = self.unpack(self.line.popleft())
+            return sorted(param)
+        elif command == "MIN":
+            param = self.unpack(self.line.popleft())
+            return min(param)
+        elif command == "MAX":
+            param = self.unpack(self.line.popleft())
+            return max(param)
+        elif command == "BSL" or command == "BSU":
+            inp = self.line.popleft().split("<-", 1)
+            param = self.unpack(inp[0])
+            search = self.unpack(inp[1])
+            pre = param[0]-1
+            for i in range(len(param)):
+                if param[i] < pre:
+                    raise SyntaxError
+                pre = param[i]
+            if command == "BSL":
+                return bisect.bisect_left(param, search)
+            else:
+                return bisect.bisect_right(param, search)
+        elif command == "DRAW":
+            param = self.unpack(self.line.popleft())
+            if self.out_image != None:
+                raise SyntaxError
+            if param.image == None:
+                param.DRAW()
+            param.image.save("graph.png")
+            self.out_image = "graph.png"
+        else:
+            return SyntaxError
+        
+
+

@@ -1,4 +1,5 @@
 import random
+from PIL import Image, ImageDraw
 
 
 class Tree:
@@ -9,12 +10,13 @@ class Tree:
         self.key = params[2]
         self.alt = params[3]
 
-        if self.nodes > 100:
+        if self.nodes > 200:
             raise TimeoutError
 
         self.edge_graph = []
         self.adj = [[] for _ in range(self.nodes+1)]
         self.distances = [0 for _ in range(self.nodes+1)]
+        self.image = None
 
         if self.key == "RANDOM":
             for vert in range(2, self.nodes+1):
@@ -68,3 +70,60 @@ class Tree:
         for nxt in self.adj[cur]:
             if nxt[0] != parent:
                 self.DFS(nxt[0], cur, dist + nxt[1])
+    
+    def DRAW(self):
+        self.image = Image.new("RGB", (400, 400))
+
+        depth = [0 for _ in range(self.nodes+1)]
+        def dfs(cur, par):
+            for nxt in self.adj[cur]:
+                if nxt[0] != par:
+                    depth[nxt[0]] = depth[cur] + 1
+                    dfs(nxt[0], cur)
+
+        dfs(1, -1)
+        mp = dict()
+        other = 0
+        for i in range(1, self.nodes+1):
+            if depth[i] in mp.keys():
+                mp[depth[i]] += 1
+            else:
+                mp[depth[i]] = 1
+        cnt = dict()
+        for key in mp.keys():
+            cnt[key] = mp[key]
+
+        high = max(depth)+1
+        other = max(mp.values())
+        size = 400 // max(high*2+1, other*2+1, 1)
+        other = 400 // (other*2+1)
+        high = 400 // (high*2+1)
+
+        def dfs_draw(cur, par, linexy, wei):
+
+            val = 400 // (cnt[depth[cur]]+1)
+            cx, cy = val*mp[depth[cur]], 2*high*depth[cur]+size
+
+            if linexy != None:
+                edge = ImageDraw.Draw(self.image)
+                edge.line((linexy[0], linexy[1], cx, cy))
+
+                weight = ImageDraw.Draw(self.image)
+                weight.text(((linexy[0]+cx)//2, (linexy[1]+cy)//2), str(wei))
+
+            li = len(self.adj[cur])
+            if li > 0:
+                for i in range(-(li//2), (li+1)//2):
+                    if self.adj[cur][i+li//2][0] != par:
+                        dfs_draw(self.adj[cur][i+li//2][0], cur, (cx,cy), self.adj[cur][i+li//2][1])
+            
+            draw = ImageDraw.Draw(self.image)
+            draw.ellipse((cx-size//2, cy-size//2,cx+size//2, cy+size//2), "blue", "blue")
+
+            text = ImageDraw.Draw(self.image)
+            text.text((cx-size//2+10, cy-size//2+10), str(cur), (255,255,0))
+
+            mp[depth[cur]] -= 1
+
+        dfs_draw(1, -1, None, -1)
+        #image.save("graph.png")

@@ -27,12 +27,15 @@ async def on_message(message):
             body = mes.split("\n")
             
             interpreter.output = ""
+            interpreter.out_image = None
             interpreter.insert(body)
             while len(interpreter.wait_list) > 0:
                 interpreter.read(interpreter.find())
             
             if interpreter.output != "":
                 await message.channel.send("```\n"+interpreter.output+"```")
+            if interpreter.out_image != None:
+                await message.channel.send(file=discord.File(interpreter.out_image))
         except KeyError:
             # vars are stored in dict keys
             await message.channel.send("```\nNameError\n```")
@@ -75,12 +78,5 @@ async def on_message(message):
 time.sleep(1)
 
 keep_alive()
-#i have to set up the pinging stuffies oh the webserver
+
 client.run(os.getenv('TOKEN'))
-#kinda need to ... not get ratelimited though
-#wait how, bruh how are you getting ratelimited :wtf:
-#yep this is just straight up weird
-# how am i making that many requests, tru running the program again 
-# i have like one await lol
-# hopefully doesnt die
-# ireally don't want to get banned from using discord API lol
