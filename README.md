@@ -10,7 +10,7 @@ them for the interpreter to run them.
 
 If you are having trouble with ``$miseri-$``, ``$example`` can provide an example of its use: such as
 
-**$miseri-$**
+`$miseri-`
 ```
 OUT->":D"
 ```
