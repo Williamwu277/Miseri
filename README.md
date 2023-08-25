@@ -1,11 +1,10 @@
 # miseri
-A for-fun discord bot
 
-Created for no whatever reason, miseri can do a few fun tricks such as data generation for competitive programming :D
+A for-fun discord bot with an attempt at an esolang and competitive programming tricks.
 
 Call ``$help`` for a list of commands
 
-The command ``$miseri-$`` can be used to do some cool stuff with miseri :) Just follow up with two \`\`\` and whatever commands you want executed in between 
+The command ``$miseri-$`` can be used to do some cool stuff. Just follow up with two \`\`\` and whatever commands you want executed in between 
 them for the interpreter to run them.
 
 If you are having trouble with ``$miseri-$``, ``$example`` can provide an example of its use: such as
@@ -60,6 +59,3 @@ or
 TimeoutError
 ```
 indicate when something has gone wrong
-
-___
-## Have fun :P
